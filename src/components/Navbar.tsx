@@ -27,7 +27,8 @@ export default function Navbar() {
   }, [lastScrollY]);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-12 md:py-6 transition-all duration-300 transform ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}>
+    <>
+      <nav className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-12 md:py-6 transition-all duration-300 transform ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo - NEXON Style */}
         <div className="flex items-center gap-3 select-none group cursor-pointer">
@@ -90,71 +91,72 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+    </nav>
 
-      {/* Drawer Menu overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-md z-40"
-            />
-            {/* Drawer content */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[300px] max-w-[85vw] glass-panel z-50 p-8 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex justify-between items-center mb-12">
-                  <span className="font-display font-bold tracking-wider text-white">NAVIGATION</span>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-full hover:bg-white/10 text-white transition-all duration-300"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-                <ul className="space-y-6">
-                  {["Hero", "Collection Details", "Rarity & Stats", "Exclusivity"].map((item, index) => (
-                    <motion.li
-                      key={item}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <a
-                        href={`#${item.toLowerCase().replace(/\s/g, "-")}`}
-                        onClick={() => setIsOpen(false)}
-                        className="font-display text-xl text-white/60 hover:text-brand-red transition-all duration-300 flex items-center gap-2 group"
-                      >
-                        <span className="font-mono text-xs text-brand-red">0{index + 1}.</span>
-                        <span className="group-hover:translate-x-2 transition-transform duration-300">{item}</span>
-                      </a>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="border-t border-white/10 pt-6">
-                <p className="font-mono text-[10px] text-white/40 mb-4 uppercase tracking-widest">
-                  Connect Wallet
-                </p>
-                <button className="w-full py-3 bg-brand-red hover:bg-brand-red-dark text-white rounded-lg font-display text-xs font-semibold tracking-wider transition-colors duration-300 flex items-center justify-center gap-2">
-                  <span>LAUNCH APP</span>
-                  <ArrowUpRight className="w-4 h-4" />
+    {/* Drawer Menu overlay - Rendered outside of the transformed parent to prevent containing block layout issues */}
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 bg-black/85 backdrop-blur-md z-[100]"
+          />
+          {/* Drawer content */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed top-0 right-0 h-full w-[300px] max-w-[85vw] bg-zinc-950/95 border-l border-white/10 backdrop-blur-xl z-[101] p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex justify-between items-center mb-12">
+                <span className="font-display font-bold tracking-wider text-white">NAVIGATION</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-full hover:bg-white/10 text-white transition-all duration-300"
+                >
+                  <X className="w-5 h-5" />
                 </button>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </nav>
+              <ul className="space-y-6">
+                {["Hero", "Collection Details", "Rarity & Stats", "Exclusivity"].map((item, index) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <a
+                      href={`#${item.toLowerCase().replace(/\s/g, "-")}`}
+                      onClick={() => setIsOpen(false)}
+                      className="font-display text-xl text-white/60 hover:text-brand-red transition-all duration-300 flex items-center gap-2 group"
+                    >
+                      <span className="font-mono text-xs text-brand-red">0{index + 1}.</span>
+                      <span className="group-hover:translate-x-2 transition-transform duration-300">{item}</span>
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <p className="font-mono text-[10px] text-white/40 mb-4 uppercase tracking-widest">
+                Connect Wallet
+              </p>
+              <button className="w-full py-3 bg-brand-red hover:bg-brand-red-dark text-white rounded-lg font-display text-xs font-semibold tracking-wider transition-colors duration-300 flex items-center justify-center gap-2">
+                <span>LAUNCH APP</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  </>
   );
 }

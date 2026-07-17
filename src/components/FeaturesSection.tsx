@@ -68,10 +68,10 @@ export default function FeaturesSection() {
         {/* Left Column Spacer (lg:col-span-6) - Keeps this area completely empty so the background video Samurai is beautifully visible */}
         <div className="hidden lg:block lg:col-span-6 h-[200px]" />
 
-        {/* Right Column Content (lg:col-span-6) - Shifted to the right on PC, and on mobile styled with a beautifully polished light glassmorphism card for superior readability */}
+        {/* Right Column Content (lg:col-span-6) - Shifted to the right on PC, styled cleanly without background panel container */}
         <div 
           id="features-content-column" 
-          className="col-span-1 lg:col-span-6 flex flex-col items-start text-left lg:pl-10 bg-white/75 sm:bg-white/80 backdrop-blur-md lg:backdrop-blur-none border border-white/10 lg:border-none p-6 sm:p-10 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none mx-2 sm:mx-4 lg:mx-0"
+          className="col-span-1 lg:col-span-6 flex flex-col items-start text-left lg:pl-10 p-6 sm:p-10 lg:p-0 mx-2 sm:mx-4 lg:mx-0"
         >
           
           {/* Category Label */}
